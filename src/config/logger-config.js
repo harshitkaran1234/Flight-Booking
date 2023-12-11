@@ -13,7 +13,7 @@ const logger = createLogger({
     ),
     transports: [
         new transports.Console(),
-        new transports.File({filename: 'combines.log'})
+        new transports.File({filename: 'combined.log'})
     ],
 });
 
