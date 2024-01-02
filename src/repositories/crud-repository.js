@@ -1,3 +1,4 @@
+const AppError = require('../utils/errors/app-error');
 const  { logger } = require('../config');
 
 class CrudRepository{
@@ -21,6 +22,9 @@ class CrudRepository{
 
     async get(data) {
         const response = await this.model.findByPk(data);
+        if(!response) {
+            throw new AppError('Cannot find airplane', 404);
+        }
         return response;
     }
 
