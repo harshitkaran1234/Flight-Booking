@@ -40,8 +40,21 @@ async function getAirplane(id){
     }
 }
 
+async function deleteAirplane(id){
+    try{
+        const response = await airplanRepository.destroy(id);
+        return response;
+    } catch(err) {
+        if(err.statusCode === 404){
+            throw new AppError(err.message, err.statusCode);
+        }
+        throw new AppError('Cannot fetch all airplanes data', 500);
+    }
+}
+
 module.exports = {
     createAirplane,
     getAllAirplanes,  
     getAirplane,
+    deleteAirplane,
 }

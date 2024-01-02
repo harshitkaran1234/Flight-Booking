@@ -17,6 +17,9 @@ class CrudRepository{
                 id: data
             }
         });
+        if(!response) {
+            throw new AppError('Cannot delete airplane as not found', 404);
+        }
         return response;
     }
 
