@@ -19,6 +19,16 @@ async function createAirplane(data) {
     }
 }
 
+async function getAllAirplanes() {
+    try {
+        const airplanes = await airplanRepository.getAll();
+        return airplanes;
+    } catch(err) {
+        throw new AppError('Cannot fetch all airplanes data', 500);
+    }
+}
+
 module.exports = {
-    createAirplane  
+    createAirplane,
+    getAllAirplanes,  
 }
