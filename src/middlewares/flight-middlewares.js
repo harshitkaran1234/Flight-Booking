@@ -1,5 +1,6 @@
 const { ErrorResponse } = require('../utils/common');
 const AppError = require('../utils/errors/app-error');
+const compareDateTime = require('../utils/helper/date-time-helpers');
 
 function validateCreateRequest(req, res, next) {
     if(!req.body.flightNumber) {
@@ -61,6 +62,14 @@ function validateCreateRequest(req, res, next) {
     if(!req.body.totalSeats) {
         ErrorResponse.message = 'Something went wrong while creating flight';
         ErrorResponse.error = new AppError(['totalSeats not found in the incoming req'], 400);
+        return res
+                .status(400)
+                .json(ErrorResponse);
+    }
+
+    if(!compareDateTime(req.body.departureTime, req.body.arrivalTime)){
+        ErrorResponse.message = 'Something went wrong while creating flight';
+        ErrorResponse.error = new AppError(['Departure time should be smaller than arival time'], 400);
         return res
                 .status(400)
                 .json(ErrorResponse);
