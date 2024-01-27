@@ -73,8 +73,20 @@ async function getFlight(id){
     }
 }
 
+async function updateSeats(data){
+    try{
+        const response = await flightRepository.updateRemainingSeats(data.flightId, data.seats, data.dec);
+        return response;
+    } catch(error) {
+        console.log(error);
+        throw new AppError('Cannot update data of the flight', 500);
+    }
+
+}
+
 module.exports = {
     createFlight,
     getAllFlights,
     getFlight,
+    updateSeats
 }

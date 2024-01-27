@@ -78,6 +78,19 @@ function validateCreateRequest(req, res, next) {
     next();
 }
 
+function validateUpdateSeatsRequest(req, res, next) {
+    if(!req.body.seats) {
+        ErrorResponse.message = 'Something went wrong while updating flight';
+        ErrorResponse.error = new AppError(['seats not found in incoming req'], 400);
+        return res
+                .status(400)
+                .json(ErrorResponse);
+    }
+
+    next();
+}
+
 module.exports = {
-    validateCreateRequest
+    validateCreateRequest,
+    validateUpdateSeatsRequest,
 }
