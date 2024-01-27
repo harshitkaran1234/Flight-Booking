@@ -61,7 +61,20 @@ async function getAllFlights(query) {
     }
 }
 
+async function getFlight(id){
+    try{
+        const flight = await flightRepository.get(id);
+        return flight;
+    } catch(err) {
+        if(err.statusCode === 404){
+            throw new AppError(err.message, err.statusCode);
+        }
+        throw new AppError('Cannot fetch flight data', 500);
+    }
+}
+
 module.exports = {
     createFlight,
     getAllFlights,
+    getFlight,
 }
